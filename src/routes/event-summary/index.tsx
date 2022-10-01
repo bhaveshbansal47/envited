@@ -1,9 +1,10 @@
 import { Flex, Image, Text } from "@chakra-ui/react";
+import moment from "moment";
 import React from "react";
 import { useEvent } from "../../App";
 
 export function EventSummary() {
-  const [event, setEvent] = useEvent();
+  const [event] = useEvent();
   return (
     <Flex style={{ flexDirection: "column" }}>
       <Image
@@ -36,17 +37,31 @@ export function EventSummary() {
             </Text>
           </Flex>
         </Flex>
-        <Flex>
-          <Image src="/calendar.png" style={{width: 48, height: 48}}/>
-          <Flex style={{flexDirection: 'column'}}>
-            <Text>{event.startTime}</Text>
-            <Text>to {event.endTime}</Text>
+        <Flex style={{ gap: 20, marginBottom: 20 }}>
+          <Image src="/calendar.png" style={{ width: 48, height: 48 }} />
+          <Flex style={{ flexDirection: "column" }}>
+            <Text
+              style={{ fontSize: 16, fontWeight: "700" }}
+              color="primary.purpleDark"
+            >
+              {(event.startTime &&
+                moment(event.startTime).format("DD MMM h:mm")) ||
+                "18 August 6:00PM"}
+            </Text>
+            <Text style={{ fontSize: 16 }} color="neutrals.dark">
+              to <b>{event.endTime || "18 August 6:00PM"}</b>
+            </Text>
           </Flex>
         </Flex>
-        <Flex>
-          <Image />
-          <Flex>
-            <Text>{event.location}</Text>
+        <Flex style={{ gap: 20 }}>
+          <Image src="/location.png" style={{ width: 48, height: 48 }} />
+          <Flex style={{ flexDirection: "column", justifyContent: "center" }}>
+            <Text
+              style={{ fontSize: 16, fontWeight: "700" }}
+              color="primary.purpleDark"
+            >
+              {event.location || "Street Name"}
+            </Text>
           </Flex>
         </Flex>
       </Flex>
